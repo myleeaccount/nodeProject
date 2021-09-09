@@ -17,13 +17,9 @@ const capturedDir = path.join(workingDir, 'captured');
 const duplicatedDir = path.join(workingDir, 'duplicated');
 
 // 2.폴더 생성 video, captured, duplicated
-!fs.existsSync(videoDir) && fs.mkdirSync(videoDir)
-.catch(console.error);
-!fs.existsSync(capturedDir) && fs.mkdirSync(capturedDir)
-.catch(console.error);
-!fs.existsSync(duplicatedDir) && fs.mkdirSync(duplicatedDir)
-.catch(console.error);
-
+!fs.existsSync(videoDir) && fs.mkdirSync(videoDir);
+!fs.existsSync(capturedDir) && fs.mkdirSync(capturedDir);
+!fs.existsSync(duplicatedDir) && fs.mkdirSync(duplicatedDir);
 
 // 3. 폴더안 파일들을 돌면서 mp4/mov , png/aae, IMG_1234( 이름에 E 가 들어있으면..)
 fs.promises
@@ -35,11 +31,11 @@ fs.promises
 function processFiles(files) {
     files.forEach(file => {
         if(isVideoFile(file)) {
-            move(file, videoDir)
+            move(file, videoDir);
         } else if(isCapturedFile(file)) {
-            move(file, capturedDir)
+            move(file, capturedDir);
         } else if(isDuplicatedFile(files, file)) {
-            move(file, duplicatedDir)
+            move(file, duplicatedDir);
         }
     });
 }
@@ -68,7 +64,7 @@ function isDuplicatedFile(files, file) {
 }
 
 function move(file, targetDir) {
-    console.info(`move ${file} to ${targetDir}`);
+    console.info(`move ${file} to ${path.basename(targetDir)}`);
     const oldPath = path.join(workingDir, file);
     const newPath = path.join(targetDir, file);
     fs.promises
